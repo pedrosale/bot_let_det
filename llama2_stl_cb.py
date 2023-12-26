@@ -9,10 +9,11 @@ import replicate
 import os
 
 
- st.title('🦙💬 Llama 2 Chatbot desenvolvido por Pedro Sampaio Amorim')
 
 # App title
 st.set_page_config(page_title="🦙💬 Llama 2 Chatbot desenvolvido por Pedro Sampaio Amorim")
+st.title('🦙💬 Llama 2 Chatbot desenvolvido por Pedro Sampaio Amorim')
+
 
 # Replicate Credentials
 with st.sidebar:
