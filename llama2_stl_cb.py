@@ -3,11 +3,9 @@
 
 # In[10]:
 
-
 import streamlit as st
 import replicate
 import os
-
 
 
 # App title
@@ -17,7 +15,7 @@ st.title('🦙💬 Llama 2 Chatbot desenvolvido por Pedro Sampaio Amorim')
 
 # Replicate Credentials
 with st.sidebar:
-    st.title('🦙💬 Llama 2 Chatbot desenvolvido por Pedro Sampaio Amorim')
+    st.title('🦙💬 Llama 2 Chatbot')
     if 'REPLICATE_API_TOKEN' in st.secrets:
         st.success('API key already provided!', icon='✅')
         replicate_api = st.secrets['REPLICATE_API_TOKEN']
@@ -27,8 +25,8 @@ with st.sidebar:
             st.warning('Please enter your credentials!', icon='⚠️')
         else:
             st.success('Proceed to entering your prompt message!', icon='👉')
-                st.markdown('📖 Learn how to build this app in this [blog](https://blog.streamlit.io/how-to-build-a-llama-2-chatbot/)!')
-   os.environ['REPLICATE_API_TOKEN'] = replicate_api
+    st.markdown('📖 Learn how to build this app in this [blog](https://blog.streamlit.io/how-to-build-a-llama-2-chatbot/)!')
+os.environ['REPLICATE_API_TOKEN'] = replicate_api
 
 # Store LLM generated responses
 if "messages" not in st.session_state.keys():
