@@ -8,6 +8,9 @@ import streamlit as st
 import replicate
 import os
 
+
+ st.title('🦙💬 Llama 2 Chatbot desenvolvido por Pedro Sampaio Amorim')
+
 # App title
 st.set_page_config(page_title="🦙💬 Llama 2 Chatbot desenvolvido por Pedro Sampaio Amorim")
 
