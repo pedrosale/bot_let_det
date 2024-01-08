@@ -1,17 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[10]:
-
 import streamlit as st
 import replicate
 import os
 
-
 # App title
 st.set_page_config(page_title="🦙💬 Llama 2 Chatbot desenvolvido por Pedro Sampaio Amorim")
 st.title('🦙💬 Llama 2 Chatbot desenvolvido por Pedro Sampaio Amorim')
-
 
 # Replicate Credentials
 with st.sidebar:
@@ -21,7 +17,7 @@ with st.sidebar:
         replicate_api = st.secrets['REPLICATE_API_TOKEN']
     else:
         replicate_api = st.text_input('Enter Replicate API token:', type='password')
-        if not (replicate_api.startswith('r8_') and len(replicate_api)==40):
+        if not (replicate_api.startswith('r8_') and len(replicate_api) == 40):
             st.warning('Please enter your credentials!', icon='⚠️')
         else:
             st.success('Proceed to entering your prompt message!', icon='👉')
@@ -50,9 +46,17 @@ def generate_llama2_response(prompt_input):
             string_dialogue += "User: " + dict_message["content"] + "\n\n"
         else:
             string_dialogue += "Assistant: " + dict_message["content"] + "\n\n"
-    output = replicate.run('a16z-infra/llama13b-v2-chat:df7690f1994d94e96ad9d568eac121aecf50684a0b0963b25a41cc40061269e5', 
-                           input={"prompt": f"{string_dialogue} {prompt_input} Assistant: ",
-                                  "max_new_tokens": 512, "temperature":0.1, "top_p":0.9, "max_length":512, "repetition_penalty":1})
+    output = replicate.run(
+        'replicate/llama70b-v2-chat:e951f18578850b652510200860fc4ea62b3b16fac280f83ff32282f87bbd2e48',  # Model changed to Llama2-70B
+        input={
+            "prompt": f"{string_dialogue} {prompt_input} Assistant: ",
+            "max_new_tokens": 512,
+            "temperature": 0.01,
+            "top_p": 0.9,
+            "max_length": 512,
+            "repetition_penalty": 1
+        }
+    )
     return output
 
 # User-provided prompt
@@ -74,4 +78,3 @@ if st.session_state.messages[-1]["role"] != "assistant":
             placeholder.markdown(full_response)
     message = {"role": "assistant", "content": full_response}
     st.session_state.messages.append(message)
-
