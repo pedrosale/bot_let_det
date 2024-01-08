@@ -40,16 +40,16 @@ st.sidebar.button('Clear Chat History', on_click=clear_chat_history)
 # Function for generating LLaMA2 response
 # Refactored from https://github.com/a16z-infra/llama2-chatbot
 def generate_llama2_response(prompt_input):
-    string_dialogue = "You are a helpful assistant. You do not respond as 'User' or pretend to be 'User'. You only respond once as 'Assistant'."
+    string_dialogue = "You are a helpful assistant. You do not respond as 'User' or pretend to be 'User'. You only respond once as 'Assistente do Pedro'."
     for dict_message in st.session_state.messages:
         if dict_message["role"] == "user":
             string_dialogue += "User: " + dict_message["content"] + "\n\n"
         else:
-            string_dialogue += "Assistant: " + dict_message["content"] + "\n\n"
+            string_dialogue += "Assistente do Pedro: " + dict_message["content"] + "\n\n"
     output = replicate.run(
         'replicate/llama70b-v2-chat:e951f18578850b652510200860fc4ea62b3b16fac280f83ff32282f87bbd2e48',  # Model changed to Llama2-70B
         input={
-            "prompt": f"{string_dialogue} {prompt_input} Assistant: ",
+            "prompt": f"{string_dialogue} {prompt_input} Assistente do Pedro: ",
             "max_new_tokens": 512,
             "temperature": 0.01,
             "top_p": 0.9,
